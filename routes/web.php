@@ -2,6 +2,15 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KXPOController;
+
+Route::get('/kxpo_form', function () {
+    return view('kxpo_form');
+});
+
+Route::post('/api/calculate-kxpo', [KXPOController::class, 'calculateKXPO']);
+
+
 
 Route::get('/', function () {
     return view('welcome');
