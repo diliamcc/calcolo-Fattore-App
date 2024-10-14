@@ -5,16 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\KXPORequest;
 class KXPOController extends Controller
 {
-    public function calculateKXPO(KXPORequest $request)
-    {
-        // Validare i dati ricevuti
-        $request->validate([
-            'length' => 'required|numeric|min:0',
-            't_sc' => 'required|numeric|min:0',
-            'vertical_shift' => 'required|numeric',
-        ]);
-
-        // Estrarre i dati convalidati
+    public function calculateKXPO(KXPORequest $request) {
+        // Los datos ya han sido validados en KXPORequest
         $length = $request->input('length');
         $t_sc = $request->input('t_sc');
         $vertical_shift = $request->input('vertical_shift');

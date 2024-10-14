@@ -18,7 +18,7 @@
         <form id="kxpo-form" method="POST" action="/api/calculate-kxpo">
             @csrf
             <div class="mb-3">
-                <label for="length" class="form-label">Lunghezza della nave (m)</label>
+                <label for="length" class="form-label">Longitud de la Nave (m)</label>
                 <input type="number" step="0.01" class="form-control" id="length" name="length" required>
             </div>
             <div class="mb-3">
@@ -26,12 +26,13 @@
                 <input type="number" step="0.01" class="form-control" id="t_sc" name="t_sc" required>
             </div>
             <div class="mb-3">
-                <label for="vertical_shift" class="form-label">Posizione verticale (m)</label>
+                <label for="vertical_shift" class="form-label">Posición Vertical (m)</label>
                 <input type="number" step="0.01" class="form-control" id="vertical_shift" name="vertical_shift"
                     required>
             </div>
-            <button type="submit" class="btn btn-primary">Calcola KXPO</button>
+            <button type="submit" class="btn btn-primary">Calcular KXPO</button>
         </form>
+
 
         <!-- Tabella per mostrare il risultato -->
         <table class="table mt-4" id="result-table" style="display: none;">
