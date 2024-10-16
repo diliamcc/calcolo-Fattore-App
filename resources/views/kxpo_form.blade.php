@@ -17,52 +17,54 @@
 
 <body>
     <div class="container custom-container">
-        <h2 class="mb-4">Calcular el Fattore KXPO</h2>
+        <h2 class="mb-4 text-center">Calcular el Fattore KXPO</h2>
 
         <!-- Formulario para ingresar los valores -->
         <form id="kxpo-form" method="POST" action="/api/calculate-kxpo">
             @csrf
             <!-- Longitud de la Nave -->
-            <div class="mb-3">
+            <div class="form-group">
                 <label for="length" class="form-label">Longitud de la Nave (m)</label>
                 <input type="number" step="0.01" class="form-control" id="length" name="length" required>
             </div>
 
             <!-- Pescaggio a Pieno Carico (T_sc) -->
-            <div class="mb-3">
+            <div class="form-group">
                 <label for="t_sc" class="form-label">Pescaggio a Pieno Carico (T_sc) (m)</label>
                 <input type="number" step="0.01" class="form-control" id="t_sc" name="t_sc" required>
             </div>
 
             <!-- Posición Vertical (Vertical Shift) -->
-            <div class="mb-3">
+            <div class="form-group">
                 <label for="vertical_shift" class="form-label">Posición Vertical (m)</label>
                 <input type="number" step="0.0001" class="form-control" id="vertical_shift" name="vertical_shift"
                     required>
             </div>
 
             <!-- Altura del Centro de Gravedad (CG_h) - No editable -->
-            <div class="mb-3">
+            <div class="form-group">
                 <label for="cg_h" class="form-label">Altura del Centro de Gravedad (CG_h)</label>
                 <input type="number" class="form-control" id="cg_h" readonly>
             </div>
 
             <!-- PitchAngle (fijo en 7.5 grados y convertido a radianes) - No editable -->
-            <div class="mb-3">
+            <div class="form-group">
                 <label for="pitch_angle" class="form-label">PitchAngle</label>
                 <input type="number" class="form-control" value="7.5" readonly>
                 <small>7.5 grados / <span id="pitch_angle_radians">0.1309</span> radianes</small>
             </div>
 
             <!-- AngularAccelerationPitch - No editable -->
-            <div class="mb-3">
+            <div class="form-group">
                 <label for="angular_acceleration_pitch" class="form-label">Angular Acceleration Pitch (rad/s²)</label>
                 <input type="number" class="form-control" value="0.105" readonly>
             </div>
 
-            <!-- Botones de Enviar y Limpiar -->
-            <button type="submit" class="btn btn-primary">Calcular KXPO</button>
-            <button type="button" class="btn btn-secondary" id="reset-btn">Limpiar</button>
+            <!-- Botones de Enviar (azul) y Limpiar (verde) -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Calcular KXPO</button>
+                <button type="button" class="btn btn-secondary" id="reset-btn">Limpiar</button>
+            </div>
         </form>
 
         <!-- Mensajes de error de validación -->
@@ -74,10 +76,10 @@
 
     <!-- Modal de Bootstrap para mostrar la tabla de resultados -->
     <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-centered"> <!-- Centrar el modal -->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="resultModalLabel">Resultado del Cálculo</h5>
+                    <h5 class="modal-title" id="resultModalLabel">Risultato del Calcolo Fattore KXPO</h5>
                     <button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close">&times;</button>
                 </div>
                 <div class="modal-body">
