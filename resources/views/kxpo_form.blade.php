@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculo Fattore KXPO</title>
+    <title>Calcolo Fattore KXPO</title>
 
     <!-- Añadir la metaetiqueta CSRF -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,14 +17,14 @@
 
 <body>
     <div class="container custom-container">
-        <h2 class="mb-4 text-center">Calcular el Fattore KXPO</h2>
+        <h2 class="mb-4 text-center">Calculate Factor KXPO</h2>
 
         <!-- Formulario para ingresar los valores -->
         <form id="kxpo-form" method="POST" action="/api/calculate-kxpo">
             @csrf
             <!-- Longitud de la Nave -->
             <div class="form-group">
-                <label for="length" class="form-label">Longitud de la Nave (m)</label>
+                <label for="length" class="form-label">Lengh Ship (m)</label>
                 <input type="number" step="0.01" class="form-control" id="length" name="length" required>
             </div>
 
@@ -36,34 +36,29 @@
 
             <!-- Posición Vertical (Vertical Shift) -->
             <div class="form-group">
-                <label for="vertical_shift" class="form-label">Posición Vertical (m)</label>
+                <label for="vertical_shift" class="form-label">Vertical Shift (m)</label>
                 <input type="number" step="0.0001" class="form-control" id="vertical_shift" name="vertical_shift"
                     required>
             </div>
 
-            <!-- Altura del Centro de Gravedad (CG_h) - No editable -->
-            <div class="form-group">
-                <label for="cg_h" class="form-label">Altura del Centro de Gravedad (CG_h)</label>
-                <input type="number" class="form-control" id="cg_h" readonly>
-            </div>
 
             <!-- PitchAngle (fijo en 7.5 grados y convertido a radianes) - No editable -->
             <div class="form-group">
-                <label for="pitch_angle" class="form-label">PitchAngle</label>
+                <label for="pitch_angle" class="form-label">Pitch Angle</label>
                 <input type="number" class="form-control" value="7.5" readonly>
                 <small>7.5 grados / <span id="pitch_angle_radians">0.1309</span> radianes</small>
             </div>
 
             <!-- AngularAccelerationPitch - No editable -->
             <div class="form-group">
-                <label for="angular_acceleration_pitch" class="form-label">Angular Acceleration Pitch (rad/s²)</label>
+                <label for="angular_acceleration_pitch" class="form-label">Angular Acceleration (rad/s²)</label>
                 <input type="number" class="form-control" value="0.105" readonly>
             </div>
 
             <!-- Botones de Enviar (azul) y Limpiar (verde) -->
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Calcular KXPO</button>
-                <button type="button" class="btn btn-secondary" id="reset-btn">Limpiar</button>
+                <button type="submit" class="btn btn-primary">Calculate KXPO</button>
+                <button type="button" class="btn btn-secondary" id="reset-btn">Clean</button>
             </div>
         </form>
 
@@ -79,15 +74,15 @@
         <div class="modal-dialog modal-lg modal-dialog-centered"> <!-- Centrar el modal -->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="resultModalLabel">Risultato del Calcolo Fattore KXPO</h5>
+                    <h5 class="modal-title" id="resultModalLabel">Factor KXPO Calculation Result</h5>
                     <button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close">&times;</button>
                 </div>
                 <div class="modal-body">
                     <table class="table table-responsive custom-table">
                         <thead>
                             <tr>
-                                <th>Parámetro</th>
-                                <th>Valor</th>
+                                <th>Parameter</th>
+                                <th>Value</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -96,15 +91,15 @@
                                 <td id="kxpo-result"></td>
                             </tr>
                             <tr>
-                                <td>Altura del CG_h (m)</td>
+                                <td>Height of CG_h (m)</td>
                                 <td id="cg-h-result"></td>
                             </tr>
                             <tr>
-                                <td>PitchAngle (grados)</td>
+                                <td>Pitch Angle (grades)</td>
                                 <td id="pitch-angle-result">7.5</td>
                             </tr>
                             <tr>
-                                <td>AngularAccelerationPitch (rad/s²)</td>
+                                <td>Angular Acceleration Pitch (rad/s²)</td>
                                 <td id="angular-acceleration-result">0.105</td>
                             </tr>
                         </tbody>
@@ -164,7 +159,7 @@
                         });
                     } else {
                         document.getElementById('error-list').innerHTML =
-                            '<li>Ocurrió un error inesperado.</li>';
+                            '<li>An unexpected error occurred!!.</li>';
                     }
                     document.getElementById('error-message').style.display = 'block';
                 });
