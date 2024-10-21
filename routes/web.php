@@ -8,7 +8,7 @@ Route::get('/kxpo_form', function () {
     return view('kxpo_form');
 });
 
-Route::post('/api/calculate-kxpo', [KXPOController::class, 'calculateKXPO']);
+Route::post('/calculate-kxpo', [KXPOController::class, 'calculateKXPO']);
 
 
 

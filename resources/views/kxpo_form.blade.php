@@ -6,12 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calcolo Fattore KXPO</title>
 
-    <!-- Añadir la metaetiqueta CSRF -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Incluir Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Incluir CSS personalizado -->
+
     <link href="/css/custom.css" rel="stylesheet">
 </head>
 
@@ -19,12 +17,11 @@
     <div class="container custom-container">
         <h2 class="mb-4 text-center">Calculate Factor KXPO</h2>
 
-        <!-- Formulario para ingresar los valores -->
-        <form id="kxpo-form" method="POST" action="/api/calculate-kxpo">
+        <form id="kxpo-form">
             @csrf
             <!-- Longitud de la Nave -->
             <div class="form-group">
-                <label for="length" class="form-label">Lengh Ship (m)</label>
+                <label for="length" class="form-label">Length Ship (m)</label>
                 <input type="number" step="0.01" class="form-control" id="length" name="length" required>
             </div>
 
@@ -37,41 +34,43 @@
             <!-- Posición Vertical (Vertical Shift) -->
             <div class="form-group">
                 <label for="vertical_shift" class="form-label">Vertical Shift (m)</label>
-                <input type="number" step="0.0001" class="form-control" id="vertical_shift" name="vertical_shift"
-                    required>
+                <input type="number" step="0.0001" class="form-control" id="vertical_shift" name="vertical_shift" required>
             </div>
 
-
-            <!-- PitchAngle (fijo en 7.5 grados y convertido a radianes) - No editable -->
+            <!-- PitchAngle -->
             <div class="form-group">
-                <label for="pitch_angle" class="form-label">Pitch Angle</label>
+                <label for="PITCH_ANGLE" class="form-label">Pitch Angle</label>
                 <input type="number" class="form-control" value="7.5" readonly>
                 <small>7.5 grados / <span id="pitch_angle_radians">0.1309</span> radianes</small>
             </div>
 
-            <!-- AngularAccelerationPitch - No editable -->
+            <!-- AngularAccelerationPitch -->
             <div class="form-group">
-                <label for="angular_acceleration_pitch" class="form-label">Angular Acceleration (rad/s²)</label>
+                <label for="ANGULAR_ACCELERATION_PITCH" class="form-label">Angular Acceleration (rad/s²)</label>
                 <input type="number" class="form-control" value="0.105" readonly>
             </div>
 
-            <!-- Botones de Enviar (azul) y Limpiar (verde) -->
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Calculate KXPO</button>
+                <button type="button" id="calculate_kxpo" class="btn btn-primary">Calculate KXPO</button>
                 <button type="button" class="btn btn-secondary" id="reset-btn">Clean</button>
             </div>
         </form>
 
-        <!-- Mensajes de error de validación -->
+        <!-- Validation error messages -->
         <div id="error-message" class="alert alert-danger mt-4" style="display: none;">
             <button type="button" class="btn-close" id="close-error-btn"></button>
             <ul id="error-list"></ul>
         </div>
+
+        <!-- Mensaje de Cargando -->
+        <div id="loading-message" class="alert alert-info mt-4" style="display: block !important;">
+            <strong>Calculating, please wait...</strong>
+        </div>
     </div>
 
-    <!-- Modal de Bootstrap para mostrar la tabla de resultados -->
+    <!-- Bootstrap Modal -->
     <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered"> <!-- Centrar el modal -->
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="resultModalLabel">Factor KXPO Calculation Result</h5>
@@ -109,72 +108,12 @@
         </div>
     </div>
 
-    <!-- Incluir Bootstrap 5 JS y Popper.js -->
+    <!-- Include Bootstrap 5 JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"></script>
 
-    <script>
-        document.getElementById('kxpo-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
-
-            let formData = new FormData(this);
-            document.getElementById('error-message').style.display = 'none'; // Limpiar mensajes anteriores
-            document.getElementById('error-list').innerHTML = '';
-
-            // Enviar los datos a la API
-            fetch('/api/calculate-kxpo', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                            'content')
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(err => {
-                            throw err;
-                        });
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Mostrar el resultado en la tabla del modal
-                    document.getElementById('kxpo-result').innerHTML = data.kxpo.toFixed(4);
-                    document.getElementById('cg-h-result').innerHTML = data.cg_h;
-
-                    // Mostrar el modal con los resultados
-                    let resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
-                    resultModal.show();
-                })
-                .catch(error => {
-                    // Mostrar errores de validación
-                    if (error.errors) {
-                        Object.values(error.errors).forEach(errArray => {
-                            errArray.forEach(err => {
-                                const li = document.createElement('li');
-                                li.textContent = err;
-                                document.getElementById('error-list').appendChild(li);
-                            });
-                        });
-                    } else {
-                        document.getElementById('error-list').innerHTML =
-                            '<li>An unexpected error occurred!!.</li>';
-                    }
-                    document.getElementById('error-message').style.display = 'block';
-                });
-        });
-
-        // Botón para cerrar mensajes de error
-        document.getElementById('close-error-btn').addEventListener('click', function() {
-            document.getElementById('error-message').style.display = 'none';
-        });
-
-        // Botón para limpiar el formulario
-        document.getElementById('reset-btn').addEventListener('click', function() {
-            document.getElementById('kxpo-form').reset(); // Limpiar los inputs
-        });
-    </script>
+    <!-- JavaScript -->
+    <script src="{{ asset('js/kxpo.js') }}"></script>
 </body>
 
 </html>

@@ -6,31 +6,62 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class KXPORequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
     public function authorize()
     {
-        return true; // Permitir el acceso a esta solicitud
+        return true;
     }
 
-    public function rules()
+    /**
+     * Validation rules for input fields.
+     *
+     * @return array
+     */
+    public function rules(): array
     {
         return [
-            'length' => 'required|numeric|min:0.01', // Longitud: obligatoria, numérica, mayor que 0
-            't_sc' => 'required|numeric|min:0.01',   // T_sc: obligatoria, numérica, mayor que 0
-            'vertical_shift' => 'required|numeric',  // Posición vertical: obligatoria, numérica (puede ser negativa)
+            'length' => 'required|numeric|min:1',
+            'vertical_shift' => 'required|numeric',
+            't_sc' => 'required|numeric|min:0',
         ];
     }
 
-    public function messages()
+    /**
+     * Custom error messages.
+     *
+     * @return array
+     */
+    public function messages(): array
     {
         return [
-            'length.required' => 'La longitud de la nave es obligatoria.',
-            'length.numeric' => 'La longitud de la nave debe ser un número.',
-            'length.min' => 'La longitud de la nave debe ser mayor que 0.',
-            't_sc.required' => 'El Pescaggio a Pieno Carico (T_sc) es obligatorio.',
-            't_sc.numeric' => 'El Pescaggio a Pieno Carico (T_sc) debe ser un número.',
-            't_sc.min' => 'El Pescaggio a Pieno Carico (T_sc) debe ser mayor que 0.',
-            'vertical_shift.required' => 'La posición vertical es obligatoria.',
-            'vertical_shift.numeric' => 'La posición vertical debe ser un número.',
+            'length.required' => 'Please enter the length of the ship.',
+            'length.numeric' => 'Ship length must be a valid number.',
+            'length.min' => 'Ship length must be greater than 0.',
+
+            'vertical_shift.required' => 'Please enter the vertical position.',
+            'vertical_shift.numeric' => 'The vertical position must be a valid number.',
+
+            't_sc.required' => 'The value of T_sc is required.',
+            't_sc.numeric' => 'The value of T_sc must be numeric.',
+            't_sc.min' => 'The value of T_sc cannot be negative.',
+        ];
+    }
+
+    /**
+     * Personalización de los nombres de los atributos en los mensajes de error.
+     *
+     * @return array
+     */
+    public function attributes(): array
+    {
+        return [
+            'length' => 'ship length',
+            'vertical_shift' => 'vertical position',
+            't_sc' => 'T_sc (Pescaggio a Pieno Carico)',
         ];
     }
 }
