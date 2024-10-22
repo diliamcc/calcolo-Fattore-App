@@ -115,3 +115,27 @@ button:hover {
     list-style-type: none;
 }
 
+#loading-message {
+    display: none;
+    text-align: center;
+    color: #ffffff;
+    background-color: #007bff;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#loading-message.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+

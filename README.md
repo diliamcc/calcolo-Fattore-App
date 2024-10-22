@@ -1,66 +1,118 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Project: Calculation of the KXPO Factor
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Description
 
-## About Laravel
+This web application allows the calculation of the **KXPO Factor** based on several parameters entered by the user, such as the length of the ship, the angle of gravity (T_sc), and the vertical position of the center of gravity. The app is built with **Laravel** on the backend and uses **Bootstrap 5** for the frontend.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Main Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Accurate calculation of **KXPO Factor** using custom formulas.
+- Data entry validation using **AJAX** for a seamless user experience.
+- Presentation of results in an **interactive modal** without reloading the page.
+- Use of **Bootstrap 5** for a responsive design.
+- Real-time error handling and user feedback.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Technologies used
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Framework**: Laravel (PHP)
+- **Frontend**: HTML5, CSS3, JavaScript (AJAX), Bootstrap 5
+- **Backend**: PHP with Laravel
+- **Database**: MySQL (optional if data persistence is required)
+- **Version control**: Git
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Facility
 
-## Laravel Sponsors
+### Prerequisites
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Make sure you have the following programs installed before beginning the installation:
 
-### Premium Partners
+- **PHP** >= 8.2
+- **Composer**
+- **Node.js and npm**
+- **MySQL** (optional)
+- **Git**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Installation steps
 
-## Contributing
+1. Clone the repository:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   ```bash
+   git clone https://github.com/usuario/calcolo-fattore-app.git
+   cd calcolo-fattore-app
+   
+2. Install PHP and Laravel dependencies with Composer:
+   composer install
 
-## Code of Conduct
+3. Install Node.js dependencies for the frontend (if necessary):
+   npm install
+   npm run dev
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. Configure the .env file:
+   configure environment variables for your database, such as username, password, and database name if necessary.
 
-## Security Vulnerabilities
+5. Generate an application key:
+   php artisan key:generate
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. Migrate databases:
+   php artisan migrate
 
-## License
+7. Start the Laravel development server:
+  php artisan serve
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+8. Open the application in the browser at http://localhost:8000.
+
+---
+
+### Use
+How to calculate the KXPO factor
+Open the main page of the application.
+Enter the requested values:
+Length of the ship (in meters).
+Pescaggio a Pieno Carico (T_sc) (in meters).
+Vertical Position (can be negative).
+Click the "Calculate KXPO" button.
+The results will appear in a modal with the calculated parameters, including:
+KXPO Factor
+Center of gravity height (CG_h)
+Pitch Angle (degrees and radians)
+Angular Pitch Acceleration
+
+Data validation
+The data entered must comply with the validation rules:
+All values ​​must be numeric.
+The length of the ship and the value of T_sc must be positive values.
+Vertical Position can be negative.
+If the data is invalid, errors will be displayed below the input fields without reloading the page.
+
+---
+
+### API
+- **Endpoint**
+- **URL**: /calculate-kxpo
+- **Method**: POST
+- **Parameters**:
+  length: Ship length (decimal, required)
+  t_sc: Pescaggio a Pieno Carico (decimal, required)
+  vertical_shift: Vertical Position (decimal, required)
+  **Answer**:
+ {
+  "kxpo": 3.452,
+  "cg_h": 15,
+  "pitch_angle_rad": 0.1309,
+  "angular_acceleration_pitch": 0.105
+ }
+- Errors: In case of invalid data, the API will return a JSON object with the validation errors.
+
+### License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+### Credits
+Developer: Ing. Diliam Cueto Casanovas
+Creation date: October 2024
+Technologies: Laravel, Bootstrap, HTML/CSS, JavaScript
+
+
