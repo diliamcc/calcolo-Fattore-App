@@ -3,7 +3,7 @@ document.getElementById('calculate_kxpo').addEventListener('click', function (ev
 
     let formData = new FormData(document.getElementById('kxpo-form'));
     document.getElementById('error-message').style.display = 'none';
-    document.getElementById('loading-message').style.display = 'block';  // Mostrar el mensaje de "Cargando"
+    document.getElementById('loading-message').style.display = 'block';
     document.getElementById('error-list').innerHTML = '';
 
     fetch('/calculate-kxpo', {
@@ -33,7 +33,7 @@ document.getElementById('calculate_kxpo').addEventListener('click', function (ev
 
             let resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
             resultModal.show();
-        }, 60000);
+        }, 1000);
     })
     .catch(error => {
         document.getElementById('loading-message').style.display = 'none';

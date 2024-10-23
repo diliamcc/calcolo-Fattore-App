@@ -10,7 +10,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="/css/custom.css" rel="stylesheet">
+    <link href="{{asset('build/assets/custom-DE5ZkPKm.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -62,7 +62,7 @@
             <ul id="error-list"></ul>
         </div>
 
-        <!-- Mensaje de Cargando -->
+        <!-- Loading Message -->
         <div id="loading-message" class="alert alert-info mt-4 fade-in" style="display: none;">
             <strong>Calculating, please wait...</strong>
         </div>
@@ -112,7 +112,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"></script>
 
         <!-- JavaScript -->
-        <script src="{{ asset('js/kxpo.js') }}"></script>
+        <script src="{{ asset('build/assets/kxpo-BJIZodHc.js') }}"></script>
 </body>
 
 </html>

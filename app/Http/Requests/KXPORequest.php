@@ -52,7 +52,7 @@ class KXPORequest extends FormRequest
     }
 
     /**
-     * Personalización de los nombres de los atributos en los mensajes de error.
+     * Customizing attribute names in error messages.
      *
      * @return array
      */
